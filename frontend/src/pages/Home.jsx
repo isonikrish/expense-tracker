@@ -6,6 +6,7 @@ import { CiLogout } from "react-icons/ci";
 import { useRecoilValue } from 'recoil';
 import { expenseTransactions } from '../store/atoms/auth';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import TransactionHistory from '../components/TransactionHistory';
 function Home() {
     const expenseTransactionsData = useRecoilValue(expenseTransactions) || [];
     const [expenseData, setExpenseData] = useState([]);
@@ -68,6 +69,10 @@ function Home() {
                         <Legend />
                     </PieChart>
                 </ResponsiveContainer>
+            </div>
+            {/*transaction history */}
+            <div className='mt-20'>
+                <TransactionHistory />
             </div>
         </div>
     )

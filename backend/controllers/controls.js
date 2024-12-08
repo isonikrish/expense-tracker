@@ -94,3 +94,20 @@ export async function handleGetExpenseTransactions(req,res){
     res.status(500).json({ msg: "Internal Server Error" });
   }
 }
+export async function handleGetTransactionHistory(req,res){
+  try {
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(401).json({ msg: "Unauthorized" });
+    }
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json({ msg: "User not found" });
+    }
+
+    const expenseTransactions = await Transaction.find({userId}).sort({ createdAt: -1 });
+    return res.status(200).json(expenseTransactions)
+  } catch (error) {
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+}

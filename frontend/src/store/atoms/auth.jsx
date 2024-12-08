@@ -32,3 +32,7 @@ export const expenseTransactions = atom({
   key: "expenseTransactions",
   default: null
 })
+export const transactionHistory = atom({
+  key: "transactionHistory",
+  default: null
+})
