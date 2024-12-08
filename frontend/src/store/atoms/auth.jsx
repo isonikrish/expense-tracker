@@ -24,3 +24,7 @@ export const currencyOptionsAtom = atom({
   key: 'currencyOptionsAtom',
   default: currencyOptions,
 });
+export const typeAtom = atom({
+  key: "typeAtom",
+  default: "income"
+})

@@ -10,7 +10,7 @@ export const MainContextProvider = ({ children }) => {
     const setIsUserThere = useSetRecoilState(isUserThere);
     const [defaultCurrency, setDefaultCurrency] = useRecoilState(currencyAtom);
 
-
+    
     async function fetchMe() {
         try {
             const response = await axios.get('http://localhost:9294/api/auth/me', {
@@ -62,8 +62,25 @@ export const MainContextProvider = ({ children }) => {
         }
     }
 
+    async function handleAddTransaction(data){
+       
+        try {
+            console.log(data)
+            const res = await axios.post(' http://localhost:9294/api/controls/add-transaction', data, {
+                withCredentials: true
+            });
+            if (res.status === 201) {
+                toast.success("Transaction Added")
+                
+                fetchMe()
+            }
+        } catch (error) {
+            const errorMsg = error.response?.data?.msg || error.message || 'An error occurred';
+            toast.error(errorMsg);
+        }
+    }
     return (
-        <MainContext.Provider value={{ fetchMe, setCurrency, handleAddBalance }}>
+        <MainContext.Provider value={{ fetchMe, setCurrency, handleAddBalance,handleAddTransaction }}>
             {children}
         </MainContext.Provider>
     );
