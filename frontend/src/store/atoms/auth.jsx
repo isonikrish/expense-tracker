@@ -28,3 +28,7 @@ export const typeAtom = atom({
   key: "typeAtom",
   default: "income"
 })
+export const expenseTransactions = atom({
+  key: "expenseTransactions",
+  default: null
+})

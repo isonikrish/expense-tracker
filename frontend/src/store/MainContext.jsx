@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createContext, useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { currencyAtom, isUserThere, user } from './atoms/auth';
+import { currencyAtom, expenseTransactions, isUserThere, user } from './atoms/auth';
 import { toast } from 'react-hot-toast'
 export const MainContext = createContext();
 
@@ -9,6 +9,7 @@ export const MainContextProvider = ({ children }) => {
     const setUser = useSetRecoilState(user);
     const setIsUserThere = useSetRecoilState(isUserThere);
     const [defaultCurrency, setDefaultCurrency] = useRecoilState(currencyAtom);
+    const setExpenseTransactions = useSetRecoilState(expenseTransactions)
 
     
     async function fetchMe() {
@@ -79,6 +80,22 @@ export const MainContextProvider = ({ children }) => {
             toast.error(errorMsg);
         }
     }
+    async function fetchExpenseTransactions() {
+        try {
+
+            const res = await axios.get('http://localhost:9294/api/controls/expense-transactions',  {
+                withCredentials: true
+            });
+            if (res.status === 200) {
+                setExpenseTransactions(res.data)
+            }
+        } catch (error) {
+            console.error(error.response?.data?.msg)
+        }
+    }
+    useEffect(()=>{
+        fetchExpenseTransactions()
+    },[])
     return (
         <MainContext.Provider value={{ fetchMe, setCurrency, handleAddBalance,handleAddTransaction }}>
             {children}

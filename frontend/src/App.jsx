@@ -4,7 +4,7 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Authentication from './pages/Authentication';
 import { Toaster } from 'react-hot-toast';
 import { useRecoilValue } from 'recoil';
-import { isUserThere } from './store/atoms/auth';
+import { expenseTransactions, isUserThere } from './store/atoms/auth';
 import Home from './pages/Home';
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
       navigate('/login')
     }
   }, [userThere])
+
 
   return (
     <div data-theme="emerald">

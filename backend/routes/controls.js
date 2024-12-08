@@ -5,5 +5,5 @@ const router = express.Router();
 
 router.put("/controls/add-balance",protectRoute, handleAddBalance )
 router.post("/controls/add-transaction", protectRoute, handleAddTransaction)
-router.get("/controls",protectRoute ,handleGetExpenseTransactions);
+router.get("/controls/expense-transactions",protectRoute ,handleGetExpenseTransactions);
 export default router;
